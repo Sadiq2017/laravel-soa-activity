@@ -16,12 +16,15 @@ class PageTrackController extends Controller
         $pageTracker->save();
     }
 
-    public function getPageTracker()
+    /**
+     * @param array $params
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPageTracker(array $params): \Illuminate\Http\JsonResponse
     {
         $data = PageTracker::select('url', DB::raw('count(url) as visit_count,max(created_at) as max_date'))
-            ->groupBy('url')->orderByDesc('max_date')->paginate(10);
-
-        return $data;
+            ->groupBy('url')->orderByDesc('max_date')->offset($params['page'])->limit($params['per-page'])->get();
+        return response()->json(['data' => $data]);
     }
 
 }
