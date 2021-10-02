@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  * @property int id
  * @property string url
+ * @property string visit_date
  */
 class PageTracker extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
     /**
      * @param string $url
@@ -28,6 +29,14 @@ class PageTracker extends Model
         return $this;
     }
 
+    /**
+     * @param string $visit_date
+     */
+    public function setVisitDate(string $visit_date): self
+    {
+        $this->visit_date = $visit_date;
+        return $this;
+    }
 
 
 }

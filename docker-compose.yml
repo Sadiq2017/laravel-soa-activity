@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    container_name: activity__nginx
+    build: ./docker/nginx
+    volumes:
+      - .:/app:delegated
+    ports:
+      - 8890:80
+
+  php-fpm:
+    container_name: activity__php-fpm
+    build: ./docker/php-fpm
+    volumes:
+      - .:/app:delegated
+    ports:
+      - 9004:9000
+
+  php-cli:
+    container_name: activity__php-cli
+    build: ./docker/php-cli
+    volumes:
+      - .:/app:delegated
+      - composer_cache:/home/appuser/.composer/cache:delegated
+
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: activity
+      POSTGRES_USER: activity
+      POSTGRES_DB: activity_laravel
+    ports:
+      - 5435:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  composer_cache:
+  postgres_data:

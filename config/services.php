@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'page_tracker'=>[
+        'secret_key'=>env('PAGE_TRACKER_SECRET_KEY'),
+        'access_key'=>env('PAGE_TRACKER_ACCESS_KEY'),
+    ]
+
 ];

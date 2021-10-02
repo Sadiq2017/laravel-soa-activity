@@ -16,6 +16,7 @@ class CreatePageTrackersTable extends Migration
         Schema::create('page_trackers', function (Blueprint $table) {
             $table->id();
             $table->text('url');
+            $table->dateTime('visit_date');
             $table->timestamps();
         });
     }
